@@ -3,7 +3,7 @@ if game.PlaceId == 529375593 then --SPEED SIMULATOR
 --UI LIBRARY/GUI 
 local VLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/vep1032/VepStuff/main/Rgb%20Ui"))()
 
-MAINTTL = "VAPE HUB" 
+MAINTTL = "RoHub" 
 
 local win = VLib:Window("SPEED SIMULATOR", Color3.fromRGB(196, 40, 28))
 
@@ -85,10 +85,10 @@ ss:Dropdown("Teleports",Teleport_Table,function(t)
 end) 
 
 sss:Button("Copy Discord Server",function()
-setclipboard("https://discord.gg/73jRJuYrnc")
+setclipboard("https://discord.gg/xqgHWW9TpY")
 end) 
 
-sss:Label("MADE BY VEP#1003")
+sss:Label("MADE BY Dev_Hexry1219")
 end 
 
 if game.PlaceId == 6326691606 then --THREE PIECE
@@ -249,7 +249,7 @@ while skillsZ do wait()
 end)
 
 cred:Button("Copy Discord Server",function()
-setclipboard("https://discord.gg/73jRJuYrnc")
+setclipboard("https://discord.gg/xqgHWW9TpY")
 end) 
 
 cred:Label("MADE BY Dev_Hexry1219")
@@ -387,7 +387,7 @@ if game.PlaceId == 2013751579 then--HEROES ONLINE
         
   local cred = win:Tab("CREDITS")
 cred:Button("Copy Discord Server",function()
-setclipboard("https://discord.gg/73jRJuYrnc")
+setclipboard("https://discord.gg/xqgHWW9TpY")
 end) 
 
 cred:Label("MADE BY Dev_Hexry1219")
@@ -395,7 +395,7 @@ end
 
 if game.PlaceId == 5835263912 then --ONE PIECE MILLENIUM 3 
 local VLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/vep1032/VepStuff/main/Rgb%20Ui"))()
-MAINTTL = "VAPE HUB" 
+MAINTTL = "RoHub" 
 
 local win = VLib:Window("OPM3", Color3.fromRGB(196, 40, 28))
 
@@ -619,7 +619,7 @@ multiply = t
 end) 
 
 ss1:Button("Copy RoHub Discord Link",function()
-setclipboard("https://discord.gg/Yh9cmg2tPA")
+setclipboard("https://discord.gg/xqgHWW9TpY")
 end) 
 
 ss1:Toggle("Auto Upgrade Strength",function(t)
@@ -1125,7 +1125,7 @@ sss:Button(
 
   local cred = win:Tab("CREDITS")
 cred:Button("Copy Discord Server",function()
-setclipboard("https://discord.gg/73jRJuYrnc")
+setclipboard("https://discord.gg/xqgHWW9TpY")
 end) 
 
 cred:Label("MADE BY Dev_Hexry1219")
@@ -1137,7 +1137,7 @@ if game.PlaceId ==  2569625809 or game.PlaceId == 566399244 or game.PlaceId == 5
 
     local VLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/vep1032/VepStuff/main/Rgb%20Ui"))()
 
-       MAINTTL = "VAPE HUB"
+       MAINTTL = "RoHub"
        
       local win = VLib:Window("ELEMENTAL BG", Color3.fromRGB(196, 40, 28))
             local UI = win:Tab("MAIN")
