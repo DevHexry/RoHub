@@ -1,0 +1,1270 @@
+if game.PlaceId == 529375593 then --SPEED SIMULATOR
+
+--UI LIBRARY/GUI 
+local VLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/vep1032/VepStuff/main/Rgb%20Ui"))()
+
+MAINTTL = "VAPE HUB" 
+
+local win = VLib:Window("SPEED SIMULATOR", Color3.fromRGB(196, 40, 28))
+
+
+--ANTI AFK 
+pcall(function()
+local VirtualUser=game:service'VirtualUser'
+   game:service'Players'.LocalPlayer.Idled:connect(function()
+     VirtualUser:CaptureController()
+     VirtualUser:ClickButton2(Vector2.new())
+    end)
+end) 
+
+--TABS
+local ss = win:Tab("MAIN")
+local sss = win:Tab("CREDITS")
+
+--TABLES 
+local Teleport_Table = {} 
+for i,v in pairs(game:GetService("Workspace").GameAssets.GlobalAssets.Teleports:GetChildren()) do 
+    if v:IsA("Part") and v ~= "Spawn" then 
+        table.insert(Teleport_Table,v.Name)
+    end 
+end 
+
+
+--MAIN SCRIPTS
+ss:Toggle("Autofarm Speed",function(t)
+    speed = t 
+    while speed do wait() 
+        pcall(function()
+         game:GetService("ReplicatedStorage").Remotes.AddSpeed:FireServer()
+       end) 
+    end 
+end) 
+
+ss:Toggle("Autofarm Orbs",function(t)
+    orbs = t 
+    while orbs do wait() 
+        pcall(function()
+            for i,v in pairs(game:GetService("Workspace").GameAssets.GlobalAssets.OrbSpawns:GetChildren()) do 
+                if v.Name == "Orb" or v.Name == "PurpleOrb" then 
+                firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").GameAssets.GlobalAssets.OrbSpawns.Orb.TouchInterest.Parent, 0) 
+                 end 
+            end 
+        end)  
+     end 
+ end)   
+
+ss:Toggle("Autofarm Rings",function(t)
+    orbs = t 
+    while orbs do wait() 
+        pcall(function()
+            for i,v in pairs(game:GetService("Workspace").GameAssets.GlobalAssets.OrbSpawns:GetChildren()) do 
+                if v.Name == "Ring"  then 
+                firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").GameAssets.GlobalAssets.OrbSpawns.Ring.TouchInterest.Parent, 0) 
+                 end 
+            end 
+        end)  
+     end 
+end) 
+
+ss:Toggle("AutoConfirm Races",function(t)
+races = t 
+while races do wait() 
+    pcall(function()
+game:GetService("ReplicatedStorage").Remotes.RaceTrigger:FireServer()    
+      end) 
+   end 
+end) 
+
+ss:Dropdown("Teleports",Teleport_Table,function(t)
+    tp = t 
+    for i,v in pairs(game:GetService("Workspace").GameAssets.GlobalAssets.Teleports:GetChildren()) do 
+        if v.Name == tp then 
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame 
+        end 
+    end 
+end) 
+
+sss:Button("Copy Discord Server",function()
+setclipboard("https://discord.gg/73jRJuYrnc")
+end) 
+
+sss:Label("MADE BY VEP#1003")
+end 
+
+if game.PlaceId == 6326691606 then --THREE PIECE
+local VLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/vep1032/VepStuff/main/Rgb%20Ui"))()
+
+MAINTTL = "RoHub" 
+
+local win = VLib:Window("THREE PIECE", Color3.fromRGB(196, 40, 28))
+
+local ss1 = win:Tab("HOW TO USE")
+local ss = win:Tab("MAIN")
+local sss = win:Tab("MISC")
+local cred = win:Tab("CREDITS")
+
+local Npc_Table = {}     
+for i,v in pairs(game:GetService("Workspace"):GetChildren()) do 
+    if v:IsA("Model") and v:FindFirstChild("NPC") and v:FindFirstChild("AttackScript") and not table.find(Npc_Table,v.Name) then
+        table.insert(Npc_Table,v.Name)
+    end 
+end 
+
+    local tool_table = {}
+    for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            table.insert(tool_table, v.Name)
+        end
+    end
+    
+    distance = 5 
+    
+    
+     ss1:Label("You need to have a fruit inorder to hit mobs")
+     ss1:Label("Once you have a fruit auto equip it")
+     ss1:Label("then Spam Skills From Misc Tab")
+ 
+ 
+ss:Dropdown("Select Tool",tool_table,function(SelectedOption)
+SelectedWeapon = SelectedOption
+end)
+    
+ss:Toggle("AutoEquip",function(t)
+ Equip = t 
+    while wait() do 
+         if Equip then 
+           pcall(function()
+              for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                 if v.Name == SelectedWeapon then 
+                     game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                   end 
+                end
+            end)
+        end 
+    end 
+end)  
+    
+ss:Dropdown("Mobs To Farm",Npc_Table,function(t)
+mobs = t     
+end) 
+
+ss:Toggle("Autofarm Start",function(t)
+    autofarm = t 
+    game:GetService("RunService").Stepped:Connect(function()
+    if autofarm then
+                    pcall(function()
+        game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+    end)
+end
+end)
+                while autofarm do wait()
+                    pcall(
+                        function()
+                            for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
+                                if v.Name == mobs and v:FindFirstChild("HumanoidRootPart")and v:FindFirstChild("Humanoid") then
+                                   wait(.7)
+                                    repeat
+                                        wait()
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =  CFrame.new(v.HumanoidRootPart.Position + Vector3.new(0,distance,0),v.HumanoidRootPart.Position)
+                                    until v.Humanoid.Health <= 0  or autofarm == false 
+                                end
+                            end
+                        end
+                    )
+                end
+            
+end) 
+
+ ss:Slider("Distance",-9,10,3,function(t)
+ distance = t     
+ end)
+ 
+ ss:Toggle("AutoFarm Fruits",function(t)
+fruits = t 
+ while fruits do wait() 
+     pcall(function()
+for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+    if v:IsA("Tool") and v:FindFirstChild("EatScript") then 
+         firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Handle.TouchInterest.Parent, 0)
+            end 
+        end 
+     end)  
+  end 
+end) 
+ 
+
+sss:Toggle("Spam C Skill",function(t)
+skillsC = t 
+while skillsC do wait() 
+    pcall(function()
+            local LP = game:GetService("Players").LocalPlayer
+            local VIM = game:GetService("VirtualInputManager")
+         VIM:SendKeyEvent(true, Enum.KeyCode.C, false, game)
+        end) 
+    end
+end)
+            
+sss:Toggle("Spam X Skill",function(t)
+skillsX = t 
+while skillsX do wait() 
+    pcall(function()
+            local LP = game:GetService("Players").LocalPlayer
+            local VIM = game:GetService("VirtualInputManager")
+         VIM:SendKeyEvent(true, Enum.KeyCode.X, false, game)
+        end)
+    end
+end)
+            
+sss:Toggle("Spam V Skill",function(t)
+skillsV = t 
+    pcall(function()
+while skillsV do wait() 
+            local LP = game:GetService("Players").LocalPlayer
+            local VIM = game:GetService("VirtualInputManager")
+         VIM:SendKeyEvent(true, Enum.KeyCode.V, false, game)
+        end 
+    end)
+end)
+        
+sss:Toggle("Spam E Skill",function(t)
+skills = t 
+while skills do wait() 
+    pcall(function()
+            local LP = game:GetService("Players").LocalPlayer
+            local VIM = game:GetService("VirtualInputManager")
+         VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+       end)
+    end
+end)
+          
+sss:Toggle("Spam Z Skill",function(t)
+skillsZ = t 
+while skillsZ do wait() 
+    pcall(function()
+            local LP = game:GetService("Players").LocalPlayer
+            local VIM = game:GetService("VirtualInputManager")
+         VIM:SendKeyEvent(true, Enum.KeyCode.Z, false, game)
+        end)
+     end
+end)
+
+cred:Button("Copy Discord Server",function()
+setclipboard("https://discord.gg/73jRJuYrnc")
+end) 
+
+cred:Label("MADE BY Dev_Hexry1219")
+end 
+
+
+if game.PlaceId == 2013751579 then--HEROES ONLINE
+    local VLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/vep1032/VepStuff/main/Rgb%20Ui"))()
+    MAINTTL = "VAPE HUB" 
+
+    local win = VLib:Window("HEROES ONLINE", Color3.fromRGB(196, 40, 28))
+
+    local ss = win:Tab("MAIN")
+
+    Distance = 4
+    DB = 0
+
+    local tool_table = {}
+    for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+        if v:IsA("Tool") then
+            table.insert(tool_table, v.Name)
+        end
+    end
+
+    local Npc_Table = {
+        "Thug",
+        "UAStudent",
+        "ArmedPolice",
+        "NaturiaGuard",
+        "Nomu",
+        "ArmedThug",
+        "Hooligan",
+        "Muscular",
+        "HeroKillerStain"
+    }
+
+    SelectedWeapon = nil
+
+    ss:Dropdown(
+        "Mobs",
+        Npc_Table,
+        function(t)
+            NP = t
+        end
+    )
+
+    ss:Toggle(
+        "Autofarm Mobs",
+        function(t)
+            autofarm = t
+
+            game:GetService("RunService").Heartbeat:Connect(
+                function()
+                    if autofarm then
+                        pcall(
+                            function()
+                                game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+                            end
+                        )
+                    end
+                end
+            )
+
+            while autofarm do
+                wait()
+                pcall(
+                    function()
+                        for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
+                            if
+                                string.match(v.Name, NP) and v:IsA("Model") and v:FindFirstChild("hitbox") and
+                                    v:FindFirstChild("HumanoidRootPart")
+                             then
+                                repeat
+                                    wait()
+                                    local TweenService = game:GetService("TweenService")
+                                    local tweenInfo =
+                                        TweenInfo.new(
+                                        5, -- Time
+                                        Enum.EasingStyle.Linear, -- EasingStyle
+                                        Enum.EasingDirection.Out, -- EasingDirection
+                                        0, -- RepeatCount (when less than zero the tween will loop indefinitely)
+                                        false, -- Reverses (tween will reverse once reaching it's goal)
+                                        0 -- DelayTime
+                                    )
+
+                                    local part = game.Players.LocalPlayer.Character.HumanoidRootPart
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+                                        CFrame.new(
+                                        v.HumanoidRootPart.Position + Vector3.new(0, Distance, DB),
+                                        v.HumanoidRootPart.Position
+                                    )
+                                    local tween = TweenService:Create(part, tweenInfo, {CFrame = npcCFrame})
+                                    tween:Play()
+                                until v.Humanoid.Health <= 0 or autofarm == false
+                            end
+                        end
+                    end)
+            end
+        end)
+
+    ss:Slider(
+        "Mob Distance Behind",0,10,2,
+        function(t)
+            DB = t
+        end)
+
+    ss:Slider(
+        "Mob Distance Height",
+        -9,
+        10,
+        3,
+        function(t)
+            Distance = t
+        end)
+
+    ss:Toggle(
+        "Kill Aura",
+        function(t)
+            aura = t
+            while aura do
+                wait()
+                pcall(function()
+                        local args = {
+                            [1] = "Melee",
+                            [2] = "",
+                            [3] = 1,
+                            [4] = 1,
+                            [5] = "Melee"
+                        }
+
+                        game:GetService("ReplicatedStorage").Events.DataEvent:FireServer(unpack(args))
+                    end)
+            end
+        end)
+        
+  local cred = win:Tab("CREDITS")
+cred:Button("Copy Discord Server",function()
+setclipboard("https://discord.gg/73jRJuYrnc")
+end) 
+
+cred:Label("MADE BY Dev_Hexry1219")
+end
+
+if game.PlaceId == 5835263912 then --ONE PIECE MILLENIUM 3 
+local VLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/vep1032/VepStuff/main/Rgb%20Ui"))()
+MAINTTL = "VAPE HUB" 
+
+local win = VLib:Window("OPM3", Color3.fromRGB(196, 40, 28))
+
+--ANTI AFK 
+pcall(function()
+local VirtualUser=game:service'VirtualUser'
+game:service'Players'.LocalPlayer.Idled:connect(function()
+warn("anti-afk")
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+   end)
+end) 
+
+---------------CREDITS TO DEMON SLAYER FOR REMOVE FAKES!!-------------------------
+
+--------------------------------------------
+
+local ss = win:Tab("MAIN")
+local ss1 = win:Tab("MISC")
+local frt = win:Tab("FRUITS")
+local sss = win:Tab("TELEPORTS")
+
+multiply = 5 
+
+local Fruit_Table = { "Bomb", "Hie", "Magu", "Pika", "Yami", "Diamond", "Lightning", "Mera", "Tremor", "Zushi"} 
+
+local Npc_Table = {} 
+for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do 
+    if v:IsA("Model") and v.Name ~= "DMMY" and not table.find(Npc_Table,v.Name) then 
+        table.insert(Npc_Table,v.Name)
+    end 
+end 
+
+
+local Tp_Table = {} 
+for i,v in pairs(game:GetService("Workspace").ShopNPCs:GetChildren()) do 
+    if v:IsA("Model") then 
+        table.insert(Tp_Table,v.Name)
+    end 
+end 
+
+local Quest_Table = {} 
+for i,v in pairs(game:GetService("Workspace").QuestNPCs:GetChildren()) do 
+    if v:IsA("Model") then 
+        table.insert(Quest_Table,v.Name)
+    end 
+end 
+
+ss:Dropdown("Quests", Quest_Table,function(t)
+quest = t      
+end) 
+
+ss:Toggle("Quest Start",function(t)
+qstart = t 
+while qstart do wait() 
+    pcall(function()
+
+local args = {
+    [1] = {
+        ["Type"] = "Quest",
+        ["ID"] = quest,
+        ["MinimumLevel"] = 1,
+        ["NPCName"] = "Level1Quest",
+        ["Job"] = "AcceptDialogue"
+    }
+}
+
+game:GetService("ReplicatedStorage").Remotes.ClientE:FireServer(unpack(args))
+        end) 
+    end 
+end) 
+
+
+ss:Dropdown("Mobs",Npc_Table,function(t)
+    mobs = t 
+end) 
+
+    ss:Toggle(
+        "Autofarm Start Mobs",
+        function(state)
+            farm = state
+            game:GetService("RunService").Heartbeat:Connect(
+                function()
+                    if farm then
+                        pcall(
+                            function()
+                                game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+                            end
+                        )
+                    end
+                end
+            )
+
+            while farm do
+                wait()
+             pcall(function()
+                for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                    if v.Name == mobs and v.PrimaryPart ~= nil and  v:FindFirstChild("HumanoidRootPart") then
+                        repeat
+                            wait()
+                            pcall(
+                                function()
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+                                        CFrame.new(
+                                        v.HumanoidRootPart.Position + Vector3.new(0, Distance, 0),
+                                        v.HumanoidRootPart.Position
+                                    )
+                                end
+                            )
+                            wait()
+                        until v.Humanoid.Health <= 0 or farm == false
+                    end
+                end
+            end) 
+          end
+        end
+    )
+
+ss:Toggle("REMOVE FAKES",function(t)
+fake = t 
+while fake do wait() 
+    pcall(function()
+function removeFake()
+    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+        if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") then
+            else
+                v:Destroy()
+            end
+        end
+    end
+
+    function removeFake2()
+        for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+            if v.Humanoid.MaxHealth > v.Humanoid.Health then
+                v:Destroy()
+                end
+            end
+        end
+        
+        
+removeFake()
+removeFake2()
+      end)  
+   end 
+end) 
+
+    Distance = 5
+
+    ss:Slider(
+        "Distance",
+        -9,
+        10,
+        3,
+        function(t)
+            Distance = t
+        end
+    )
+
+ss:Toggle("Use AirSlash",function(t)
+    airslash = t 
+    while airslash do wait() 
+        pcall(function()
+local args = {
+    [1] = "AirSlash",
+    [2] = Vector3.new(3016.88671875, 208.96415710449, 1410.5828857422)
+}
+
+game:GetService("ReplicatedStorage").Remotes.SkillDamage:FireServer(unpack(args))
+            
+        end) 
+    end 
+end) 
+
+ss:Toggle("Kill Aura/One Shot Kill",function(t)
+    hit = t 
+    while hit do wait() 
+        pcall(function()
+for i = 1,multiply do 
+function getNil(name,class) for _,v in pairs(getnilinstances())do if v.ClassName==class and v.Name==name then return v;end end end
+
+local args = {
+    [1] = {
+        ["Mobs"] = {
+            [1] = workspace.Enemies[mobs]
+        },
+        ["Animation"] = getNil("Animation", "AnimationTrack"),
+        ["ID"] = 47549600,
+        ["Cancelled"] = {
+            ["fire"] = function()end --[[fire]],
+            ["wait"] = function()end --[[wait]],
+            ["connect"] = function()end --[[connect]]
+        },
+        ["Player"] = game:GetService("Players").LocalPlayer,
+        ["Complete"] = {
+            ["fire"] = function()end --[[fire]],
+            ["wait"] = function()end --[[wait]],
+            ["connect"] = function()end --[[connect]]
+        },
+        ["State"] = "Completed",
+        ["Arguments"] = {},
+        ["Time"] = 1616686392.499,
+        ["Replication"] = {},
+        ["Input"] = "LMB",
+        ["Length"] = 1,
+        ["Name"] = "PunchLMB5",
+        ["Speed"] = 1
+   }
+     }  
+     game:GetService("ReplicatedStorage").Core.Combat.CombatController:FireServer(unpack(args))
+
+game:GetService("ReplicatedStorage").Remotes.SkillDamage:FireServer("Lion's Song")
+game:GetService("ReplicatedStorage").Remotes.SkillsCheck:FireServer("Lion's Song",Vector3.new(0, 0, 0))
+
+          end 
+      end) 
+   end 
+end) 
+
+ss:Slider("Kill Aura Damage Multiplier",100,1,0,function(t)
+multiply = t 
+end) 
+
+ss1:Button("Copy RoHub Discord Link",function()
+setclipboard("https://discord.gg/Yh9cmg2tPA")
+end) 
+
+ss1:Toggle("Auto Upgrade Strength",function(t)
+str = t 
+while str do wait() 
+    pcall(function()
+local args = {
+    [1] = {
+        ["Value"] = 1,
+        ["Name"] = "Strength",
+        ["Job"] = "UpgradeAttribute"
+    }
+}
+
+game:GetService("ReplicatedStorage").Remotes.ClientE:FireServer(unpack(args))
+    end) 
+  end 
+end) 
+
+ss1:Toggle("Auto Upgrade Sword",function(t)
+str1 = t 
+while str1 do wait() 
+    pcall(function()
+local args = {
+    [1] = {
+        ["Value"] = 1,
+        ["Name"] = "Sword",
+        ["Job"] = "UpgradeAttribute"
+    }
+}
+
+game:GetService("ReplicatedStorage").Remotes.ClientE:FireServer(unpack(args))
+    end) 
+  end 
+end)
+
+ss1:Toggle("Auto Upgrade Endurance",function(t)
+str2 = t 
+while str2 do wait() 
+    pcall(function()
+local args = {
+    [1] = {
+        ["Value"] = 1,
+        ["Name"] = "Endurance",
+        ["Job"] = "UpgradeAttribute"
+    }
+}
+
+game:GetService("ReplicatedStorage").Remotes.ClientE:FireServer(unpack(args))
+    end) 
+  end 
+end) 
+
+ss1:Toggle("Auto Upgrade Gun",function(t)
+str3 = t 
+while str3 do wait() 
+    pcall(function()
+local args = {
+    [1] = {
+        ["Value"] = 1,
+        ["Name"] = "Gun",
+        ["Job"] = "UpgradeAttribute"
+    }
+}
+
+game:GetService("ReplicatedStorage").Remotes.ClientE:FireServer(unpack(args))
+    end) 
+  end 
+end) 
+
+ss1:Toggle("Auto Upgrade DevilFruit",function(t)
+str5 = t 
+while str5 do wait() 
+    pcall(function()
+local args = {
+    [1] = {
+        ["Value"] = 1,
+        ["Name"] = "DevilFruit",
+        ["Job"] = "UpgradeAttribute"
+    }
+}
+
+game:GetService("ReplicatedStorage").Remotes.ClientE:FireServer(unpack(args))
+    end) 
+  end 
+end) 
+
+ss1:Toggle(
+    "Spam E Skill",
+    function(t)
+        skills = t
+        while skills do
+            wait()
+            pcall(
+                function()
+                    local LP = game:GetService("Players").LocalPlayer
+                    local VIM = game:GetService("VirtualInputManager")
+                    VIM:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+                end
+            )
+        end
+    end
+)
+
+ss1:Toggle(
+    "Spam R Skill",
+    function(t)
+        skillsR = t
+        while skillsR do
+            wait()
+            pcall(
+                function()
+                    local LP = game:GetService("Players").LocalPlayer
+                    local VIM = game:GetService("VirtualInputManager")
+                    VIM:SendKeyEvent(true, Enum.KeyCode.R, false, game)
+                end
+            )
+        end
+    end
+)
+
+ss1:Toggle(
+    "Spam F Skill",
+    function(t)
+        skillsf = t
+        while skillsf do
+            wait()
+            pcall(
+                function()
+                    local LP = game:GetService("Players").LocalPlayer
+                    local VIM = game:GetService("VirtualInputManager")
+                    VIM:SendKeyEvent(true, Enum.KeyCode.f, false, game)
+                end
+            )
+        end
+    end
+)
+
+ss1:Toggle(
+    "Spam C Skill",
+    function(t)
+        skillsC = t
+        while skillsC do
+            wait()
+            pcall(
+                function()
+                    local LP = game:GetService("Players").LocalPlayer
+                    local VIM = game:GetService("VirtualInputManager")
+                    VIM:SendKeyEvent(true, Enum.KeyCode.C, false, game)
+                end
+            )
+        end
+    end
+)
+
+ss1:Toggle(
+    "Spam X Skill",
+    function(t)
+        skillsX = t
+        while skillsX do
+            wait()
+            pcall(
+                function()
+                    local LP = game:GetService("Players").LocalPlayer
+                    local VIM = game:GetService("VirtualInputManager")
+                    VIM:SendKeyEvent(true, Enum.KeyCode.X, false, game)
+                end
+            )
+        end
+    end
+)
+
+ss1:Toggle(
+    "Spam V Skill",
+    function(t)
+        skillsV = t
+        pcall(
+            function()
+                while skillsV do
+                    wait()
+                    local LP = game:GetService("Players").LocalPlayer
+                    local VIM = game:GetService("VirtualInputManager")
+                    VIM:SendKeyEvent(true, Enum.KeyCode.V, false, game)
+                end
+            end
+        )
+    end
+)
+
+frt:Toggle("Fruit Farm",function(t)
+fruit = t 
+while fruit do wait() 
+pcall(function()
+for i,v in pairs(workspace:GetChildren()) do 
+    if v:IsA("Tool") then 
+        v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
+           end 
+        end 
+     end) 
+   end 
+end) 
+
+frt:Dropdown("Select Fruit 1",Fruit_Table,function(t)
+    fruits = t 
+end)
+
+frt:Toggle("Autofarm Selected Fruit 1",function(t)
+f = t 
+while f do wait()
+    pcall(function()
+        for i,v in pairs(game:GetService("Workspace"):GetChildren()) do 
+            if v.Name == fruits then 
+                        v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
+            end 
+        end
+    end)
+end
+end)
+
+frt:Dropdown("Select Fruit 2",Fruit_Table,function(t)
+    fruits2 = t 
+end)
+
+frt:Toggle("Autofarm Selected Fruit 2",function(t)
+f = t 
+while f do wait()
+    pcall(function()
+        for i,v in pairs(game:GetService("Workspace"):GetChildren()) do 
+            if v.Name == fruits2 then 
+                        v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
+            end 
+        end
+    end)
+end
+end)
+
+frt:Dropdown("Select Fruit 3",Fruit_Table,function(t)
+    fruits3 = t 
+end)
+
+frt:Toggle("Autofarm Selected Fruit 3",function(t)
+f = t 
+while f do wait()
+    pcall(function()
+        for i,v in pairs(game:GetService("Workspace"):GetChildren()) do 
+            if v.Name == fruits3 then 
+                        v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
+            end 
+        end
+    end)
+end
+end)
+
+frt:Dropdown("Select Fruit 4",Fruit_Table,function(t)
+    fruits4 = t 
+end)
+
+frt:Toggle("Autofarm Selected Fruit 4",function(t)
+f = t 
+while f do wait()
+    pcall(function()
+        for i,v in pairs(game:GetService("Workspace"):GetChildren()) do 
+            if v.Name == fruits4 then 
+                        v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
+            end 
+        end
+    end)
+end
+end)
+
+frt:Dropdown("Select Fruit 5",Fruit_Table,function(t)
+    fruits5 = t 
+end)
+
+frt:Toggle("Autofarm Selected Fruit 5",function(t)
+f = t 
+while f do wait()
+    pcall(function()
+        for i,v in pairs(game:GetService("Workspace"):GetChildren()) do 
+            if v.Name == fruits5 then 
+                        v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
+            end 
+        end
+    end)
+end
+end)
+
+        
+sss:Dropdown("Teleports ShopNPC",Tp_Table,function(t)
+shopnpc = t 
+for i,v in pairs(game:GetService("Workspace").ShopNPCs:GetChildren()) do 
+    if v.Name == shopnpc then 
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame 
+      end 
+   end 
+end) 
+
+end 
+
+if game.PlaceId == 5154141806 then --SQUARE PIECE
+
+local VLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/vep1032/VepStuff/main/Rgb%20Ui"))()
+
+MAINTTL = "VAPE HUB" 
+
+local win = VLib:Window("SQUARE PIECE", Color3.fromRGB(196, 40, 28))
+
+
+--ANTI AFK 
+pcall(function()
+local VirtualUser=game:service'VirtualUser'
+   game:service'Players'.LocalPlayer.Idled:connect(function()
+     VirtualUser:CaptureController()
+     VirtualUser:ClickButton2(Vector2.new())
+    end)
+end) 
+
+--TABS
+local ss = win:Tab("MAIN")
+local sss = win:Tab("MISC")
+
+distance = 5
+
+game:GetService("RunService").Heartbeat:Connect(
+    function()
+        if Enabled then
+            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+        end
+    end
+)
+
+pcall(
+    function()
+        Island_Table = {}
+        for i, v in pairs(game:GetService("Workspace").Map.Islands:GetChildren()) do
+            if v:IsA("Folder") then
+                table.insert(Island_Table, v.Name)
+            end
+        end
+
+        Npc_Table = {}
+        for i, v in pairs(game:GetService("Workspace").Entities:GetChildren()) do
+            if v:IsA("Model") and v:FindFirstChild("Data") then
+                if not table.find(Npc_Table, v.Name) then
+                    table.insert(Npc_Table, v.Name)
+                end
+            end
+        end
+
+        tool_table = {}
+        for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+            if v:IsA("Tool") then
+                table.insert(tool_table, v.Name)
+            end
+        end
+    end
+)
+
+SelectedWeapon = nil
+
+ss:Dropdown(
+    "Select Tool",
+    tool_table,
+    function(SelectedOption)
+        SelectedWeapon = SelectedOption
+    end
+)
+
+ss:Toggle(
+    "AutoEquip",
+    function(t)
+        Equip = t
+        while wait() do
+            if Equip then
+                for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                    if v.Name == SelectedWeapon then
+                        game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                    end
+                end
+            end
+        end
+    end
+)
+ss:Dropdown(
+    "Mobs",
+    Npc_Table,
+    function(t)
+        mobs = t
+    end
+)
+
+ss:Toggle(
+    "Autofarm Start",
+    function(t)
+        Enabled = t
+        while Enabled do
+            wait()
+            pcall(
+                function()
+                    for i, v in pairs(workspace.Entities:GetChildren()) do
+                        if v.Name == mobs and v:FindFirstChild("HumanoidRootPart") then
+                            repeat
+                                wait()
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+                                    CFrame.new(
+                                    v.HumanoidRootPart.Position + Vector3.new(0, distance, 0),
+                                    v.HumanoidRootPart.Position
+                                )
+                            until v.Humanoid.Health <= 0 or Enabled == false
+                            wait()
+                        end
+                    end
+                end
+            )
+        end
+    end
+)
+
+ss:Slider(
+    "Distance",
+    -9,
+    10,
+    3,
+    function(t)
+        distance = t
+    end
+)
+
+ss:Toggle(
+    "AutoHit",
+    function(t)
+        hit = t
+        while hit do
+            wait()
+            pcall(
+                function()
+                    game:GetService("ReplicatedStorage").Remotes.requestAbility:FireServer(
+                        "Fighting Style",
+                        "MouseButton1",
+                        CFrame.new(
+                            789.997559,
+                            -44.5666275,
+                            -5622.73926,
+                            0.98920089,
+                            0.0132941501,
+                            -0.145962268,
+                            9.31322575e-10,
+                            0.995877981,
+                            0.090703927,
+                            0.146566436,
+                            -0.0897244066,
+                            0.985123277
+                        ),
+                        workspace.Map.Islands["Mystifine's Village"].Model.House.Part,
+                        5
+                    )
+                end
+            )
+        end
+    end
+)
+
+ss:Toggle(
+    "Autofarm Devil Fruits",
+    function()
+        fruit = t
+        while fruit do
+            wait()
+            pcall(
+                function()
+                    for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
+                        if v:IsA("Tool") then
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
+                        end
+                    end
+                end
+            )
+        end
+    end
+)
+
+sss:Button(
+    "UNLOCK GAMEPASSES",
+    function()
+        for i, v in pairs(game.Players.LocalPlayer.Gamepasses:GetChildren()) do
+            if v:IsA("BoolValue") then
+                v.Value = true
+            end
+        end
+    end
+)
+
+sss:Button(
+    "UNLOCK ALL STATES",
+    function()
+        for i, v in pairs(game.Players.LocalPlayer.States:GetChildren()) do
+            if v:IsA("BoolValue") then
+                v.Value = true
+            end
+        end
+    end
+)
+
+  local cred = win:Tab("CREDITS")
+cred:Button("Copy Discord Server",function()
+setclipboard("https://discord.gg/73jRJuYrnc")
+end) 
+
+cred:Label("MADE BY Dev_Hexry1219")
+
+end 
+
+
+if game.PlaceId ==  2569625809 or game.PlaceId == 566399244 or game.PlaceId == 570158081 or game.PlaceId == 537600204  then 
+
+    local VLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/vep1032/VepStuff/main/Rgb%20Ui"))()
+
+       MAINTTL = "VAPE HUB"
+       
+      local win = VLib:Window("ELEMENTAL BG", Color3.fromRGB(196, 40, 28))
+            local UI = win:Tab("MAIN")
+            local UI2 = win:Tab("MISC")
+            
+            UI:Toggle("Autofarm Diamonds",function(t)
+                getgenv().diamond = t 
+                while wait() do 
+                    if getgenv().diamond then 
+                        for i,v in pairs(game:GetService("Workspace")[".Ignore"][".ServerEffects"]:GetChildren()) do 
+                            if v.Name == "Diamond" then 
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame 
+                            end; 
+                        end; 
+                    end; 
+                end;
+            end)
+            
+               UI:Toggle("Autofarm Shards",function(t)
+                getgenv().Shards = t 
+                while wait() do 
+                    if getgenv().Shards then 
+                        for i,v in pairs(game:GetService("Workspace")[".Ignore"][".ServerEffects"]:GetChildren()) do 
+                            if v.Name == "Shard" then 
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame 
+                            end; 
+                        end; 
+                    end; 
+                end;
+            end)
+            
+            UI:Toggle("Autofarm Exp Grass",function(t)
+                getgenv().grass = t
+             while wait() do
+                 if getgenv().grass then 
+                        game:GetService("ReplicatedStorage").Remotes.DoClientMagic:FireServer("Grass","Spore Bombs")
+                 
+                    
+                     wait()
+                   
+                        game:GetService("ReplicatedStorage").Remotes.DoMagic:InvokeServer("Grass","Spore Bombs",CFrame.new(-1632.29602, 40.9587402, 921.052429, 0.94363457, -0.0706476048, -0.323361903, -0, 0.976955473, -0.213443667, 0.33098945, 0.201412827, 0.921888769))
+                  
+                     wait()
+                     
+                        game:GetService("ReplicatedStorage").Remotes.DoMagic:InvokeServer("Grass","Poison Needles")
+                  
+            wait()
+            
+                game:GetService("ReplicatedStorage").Remotes.DoMagic:InvokeServer("Grass","Poison Needles")
+            
+             wait()
+            
+                game:GetService("ReplicatedStorage").Remotes.DoClientMagic:FireServer("Grass","Poison Needles")
+             
+                 end
+             end
+            end)
+            
+            
+            UI:Toggle("Autofarm Exp (Fire)", function(t)
+          getgenv().fire = t
+             while wait() do
+                 if getgenv().fire then 
+                game:GetService("ReplicatedStorage").Remotes.DoMagic:InvokeServer("Fire","Consecutive Fire Bullets",CFrame.new(-1632.29602, 40.9587402, 921.052429, 0.94363457, -0.0706476048, -0.323361903, -0, 0.976955473, -0.213443667, 0.33098945, 0.201412827, 0.921888769))
+            
+                wait()
+                
+                game:GetService("ReplicatedStorage").Remotes.DoClientMagic:FireServer("Fire","Consecutive Fire Bullets")
+                
+                wait()
+                
+                game:GetService("ReplicatedStorage").Remotes.DoMagic:InvokeServer("Fire","Blaze Column")
+                
+                wait()
+                
+                game:GetService("ReplicatedStorage").Remotes.DoClientMagic:FireServer("Fire","Blaze Column")
+                
+                wait()
+                 end
+        end
+            end)
+            
+            
+            UI:Toggle( "AutoFarm Exp (Water)", function(t)
+                        getgenv().water = t
+             while wait() do
+                 if getgenv().water then 
+                game:GetService("ReplicatedStorage").Remotes.DoMagic:InvokeServer("Water","Water Beam")
+            
+                wait()
+                
+                game:GetService("ReplicatedStorage").Remotes.DoClientMagic:FireServer("Water","Water Beam")
+                
+                wait()
+                
+                game:GetService("ReplicatedStorage").Remotes.DoMagic:InvokeServer("Water","Water Tornado")
+                
+                wait()
+                
+                game:GetService("ReplicatedStorage").Remotes.DoClientMagic:FireServer("Water","Water Tornado")
+                
+                 end
+            end
+                end)
+            
+
+            
+            
+            
+            getgenv().farmer = false
+            UI2:Toggle("Anti Afk",function(state)
+                getgenv().farmer = not getgenv().farmer
+                if getgenv().farmer then 
+                    local vu = game:GetService("VirtualUser")
+                    game:GetService("Players").LocalPlayer.Idled:connect(function()
+                        vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+                        wait(1)
+                        vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+                    end)
+                end
+            end)
+   
+              local cred = win:Tab("CREDITS")
+cred:Button("Copy Discord Server",function()
+setclipboard("https://discord.gg/Yh9cmg2tPA")
+end) 
+
+cred:Label("MADE BY Dev_HEXRY1219")
+
+            end
